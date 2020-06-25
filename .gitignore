@@ -1,0 +1,13 @@
+# log files
+study/log/*.log
+study/log/qrcode
+.qiniu_pythonsdk_hostscache.json
+
+# webdriver
+study/webdriver/max
+study/webdriver/linux
+study/webdriver/windows
+
+# cache and download
+__pycache__
+google-chrome-stable*
