@@ -132,10 +132,6 @@ class Study(Driver):
             max_check_times (int):
             sleep_time (int): sleep time.
         """
-        login_url = "https://pc.xuexi.cn/points/login.html"
-        self.driver.get(login_url)
-        time.sleep(1)
-
         count = 0
         while count < max_check_times:
             try:
