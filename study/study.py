@@ -81,6 +81,9 @@ class Study(Driver):
     def _login(self, max_num_retries=3):
         num_retries = 0
         self.logger.info("开始登录 ...")
+        login_url = "https://pc.xuexi.cn/points/login.html"
+        self.driver.get(login_url)
+        time.sleep(1)
         # load cookies if have
         if self.cookies_login_enable and self.cookies_cache_exists:
             self.logger.info(f"尝试使用缓存的cookies登录 ({self.cookies_path}) ...")
@@ -103,8 +106,6 @@ class Study(Driver):
                 self._push_qrcode()
                 self.logger.info("已将登录二维码推送至微信, 请使用 [XXQG] APP 扫码登录 ...")
             else:
-                login_url = "https://pc.xuexi.cn/points/login.html"
-                self.driver.get(login_url)
                 qrcode_image_path = self._extract_qrcode(return_type="path")
                 self.logger.info(f"请扫描二维码登录: {qrcode_image_path}")
 
@@ -292,7 +293,6 @@ class Study(Driver):
             image_line = [
                 "![qrcode](data:image/png;base64,{})".format(base64_encode)
             ]
-            print(base64_encode)
             qrcode_url = None
         elif self.qiniu_enable:
             qrcode_image_path = self._extract_qrcode(return_type="path")
