@@ -19,7 +19,8 @@ def default_setup(cfg, sys_argv):
     log_file = osp.join(cfg.OUTPUT_PATH, f"runtime_{time_str}.log")
     setup_logger(log_file, name="root")
     logger = setup_logger(log_file)
-    # logger.info("config: \n{}".format(cfg))
+    if cfg.SHOW_CONFIG:
+        logger.info("config: \n{}".format(cfg))
     logger.info("正在检查运行环境 ...")
     check_webdriver()
 

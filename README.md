@@ -25,10 +25,14 @@ git clone git@github.com:Study-Every-Day/Study.git
 # Edit config module
 vim ./study/config.py
 
-# Run
-./tools/run.sh
+# Run ([...] is optional parameter configuration)
+./tools/run.sh [cfg args]
 # Or
-python study/main.py [GUI True LOGIN.QRCODE.BASE64_ENCODE.ENABLE True ...]
+python study/main.py [cfg args]
+
+# Examples: use command line arguments
+./tools/run.sh DRIVER.GUI True
+python study/main.py DRIVER.GUI True
 ```
 
 

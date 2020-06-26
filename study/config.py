@@ -70,6 +70,8 @@ _config_dict = dict(
     # 设为 0 时就不会在程序执行前执行睡眠操作了
     MAX_SLEEP_TIME_BEFORE_START=0 * 60,
     OUTPUT_PATH=osp.join(osp.dirname(osp.abspath(__file__)), "log"),
+    # 程序运行时是否打印config.py中的配置细节
+    SHOW_CONFIG=True,
 )
 
 cfg = Config(_config_dict)
