@@ -26,7 +26,7 @@ class Task(Driver):
     def __del__(self):
         super().__del__()
 
-    def _check_login(self, max_check_times=60, sleep_time=5):
+    def _check_login(self, max_check_times=60, sleep_time=3):
         """
         The total waiting time is equal to max_check_times * sleep_time.
 
