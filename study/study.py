@@ -103,6 +103,8 @@ class Study(Driver):
                 self._push_qrcode()
                 self.logger.info("已将登录二维码推送至微信, 请使用 [XXQG] APP 扫码登录 ...")
             else:
+                login_url = "https://pc.xuexi.cn/points/login.html"
+                self.driver.get(login_url)
                 qrcode_image_path = self._extract_qrcode(return_type="path")
                 self.logger.info(f"请扫描二维码登录: {qrcode_image_path}")
 
@@ -257,8 +259,8 @@ class Study(Driver):
     def _extract_qrcode(self, return_type="base64"):
         assert return_type in ["base64", "path"]
 
-        self._hiden_elements(
-            class_name=["layout-header", "layout-footer", "redflagbox"])
+        # self._hiden_elements(
+        #     class_name=["layout-header", "layout-footer", "redflagbox"])
         qrcode_ele = self.wait.until(
             EC.element_to_be_clickable((By.ID, "qglogin")))
 
