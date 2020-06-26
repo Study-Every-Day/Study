@@ -9,9 +9,8 @@ import random
 import logging
 
 from study.config import cfg
-from study.utils.pusher import push_wechat
-from study.utils import check_webdriver, setup_logger
 from study.study import Study
+from study.utils import check_webdriver, setup_logger, push_wechat
 
 
 def default_setup(cfg, sys_argv):
@@ -44,7 +43,7 @@ def push_error(error_info):
 def random_sleep(min, max):
     logger = logging.getLogger("study")
     sleep_time = random.randint(min, max)
-    logger.info(f"随机沉睡【{time.strftime('%H时%M分%S秒', time.gmtime(sleep_time))}】")
+    logger.info(f"随机沉睡: {time.strftime('%H时%M分%S秒', time.gmtime(sleep_time))} ...")
     time.sleep(sleep_time)
 
 

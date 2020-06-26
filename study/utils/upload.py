@@ -12,7 +12,7 @@ def upload_image(
         bucket_name,
         local_file_path,
         remote_file_name):
-    logger.info("正在上传登陆二维码至云端")
+    logger.info("正在上传登陆二维码至云端 ...")
     q = Auth(access_key, secret_key)
     token = q.upload_token(bucket_name, remote_file_name, 3600)
     ret, info = put_file(token, remote_file_name, local_file_path)

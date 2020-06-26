@@ -2,6 +2,14 @@
 
 This is a useful project to help you learn XXQG.
 
+
+## TODO
+
+- [ ] Add supports for windows (Only Linux now).
+
+- [ ] Speed up.
+
+
 ## Usage
 
 ```bash
@@ -26,15 +34,16 @@ python study/main.py [GUI True LOGIN.QRCODE.BASE64_ENCODE.ENABLE True ...]
 
 ## Reqirements
 
-Python version >= 3.6.
+1. Python version >= 3.6.
 
-You should install chrome latest version before run this project.
+2. You should install chrome latest version before run this project.
 
-And you should also install third-party libs recorded in file: `requirements.txt`:
+3. And you should also install third-party libs recorded in file: `requirements.txt`:
 
-> ```shell
-> pip install -r requirements.txt
-> ```
+    > ```shell
+    > pip install -r requirements.txt
+    > ```
+
 
 ## Run regularly in the server
 

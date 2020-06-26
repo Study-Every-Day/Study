@@ -24,7 +24,7 @@ fi
 
 latest_date_file_path="./study/log/latest_complete.date"
 
-if [[ ! -f ${latest_complete_date_file_path} ]]; then
+if [ ! -f ${latest_complete_date_file_path} ]; then
     python3 tools/run.py $@
 else
     echo "Check latest complete date ..."
