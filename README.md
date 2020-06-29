@@ -2,7 +2,13 @@
 
 This is a useful project to help you learn XXQG.
 
-<img src="./docs/imgs/run.png" width="90%" align="middle">
+<table border="0" cellpadding="2" align="center">
+　<tr>
+    <td><img src="./docs/imgs/run.png" align="center" valign="middle"></td>
+    <td><img src="./docs/imgs/phone.jpeg" align="center" valign="middle"></td>
+　</tr>
+</table>
+
 
 
 ## TODO
