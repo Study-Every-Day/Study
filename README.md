@@ -2,6 +2,8 @@
 
 This is a useful project to help you learn XXQG.
 
+<img src="./docs/imgs/run.png" width="90%" align="middle">
+
 
 ## TODO
 
