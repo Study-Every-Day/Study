@@ -44,7 +44,7 @@ def push_error(error_info):
 def random_sleep(min, max):
     logger = logging.getLogger("study")
     sleep_time = random.randint(min, max)
-    logger.info(f"随机沉睡: {time.strftime('%H:%M:%S:', time.gmtime(sleep_time))} ...")
+    logger.info(f"随机沉睡: {time.strftime('%H:%M:%S', time.gmtime(sleep_time))} ...")
     time.sleep(sleep_time)
 
 
