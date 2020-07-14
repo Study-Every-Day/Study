@@ -44,12 +44,19 @@ def push_error(error_info):
 def random_sleep(min, max):
     logger = logging.getLogger("study")
     sleep_time = random.randint(min, max)
-    logger.info(f"随机沉睡: {time.strftime('%H时%M分%S秒', time.gmtime(sleep_time))} ...")
+    logger.info(f"随机沉睡: {time.strftime('%H:%M:%S:', time.gmtime(sleep_time))} ...")
     time.sleep(sleep_time)
 
 
 def main():
     default_setup(cfg, sys.argv)
+
+    # Debug mode
+    if cfg.DEBUG_MODE:
+        study = Study(cfg)
+        study.run()
+        return
+
     random_sleep(0, cfg.MAX_SLEEP_TIME_BEFORE_START)
     try:
         study = Study(cfg)

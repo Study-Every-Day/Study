@@ -24,7 +24,9 @@ _config_dict = dict(
         WXPUSHER=dict(
             ENABLE=False,
             APP_TOKEN=os.getenv("APP_TOKEN"),
-            UIDS=os.getenv("UIDS").split(","),  # Note: must be a list
+            # 可设置多个接受消息对象, 在环境变量中用 ','隔开, 或者直接替换成list
+            # NOTE must be a list
+            UIDS=os.getenv("UIDS").split(","),
         ),
     ),
     # 登录设置
@@ -72,6 +74,7 @@ _config_dict = dict(
     OUTPUT_PATH=osp.join(osp.dirname(osp.abspath(__file__)), "log"),
     # 程序运行时是否打印config.py中的配置细节
     SHOW_CONFIG=True,
+    DEBUG_MODE=False,
 )
 
 cfg = Config(_config_dict)
