@@ -82,7 +82,7 @@ def setup_logger(output=None, color=True, name="study", abbrev_name=None):
             filename = os.path.join(output, "log.txt")
         os.makedirs(os.path.dirname(filename), exist_ok=True)
 
-        fh = logging.FileHandler(filename)
+        fh = logging.FileHandler(filename, encoding="utf8")
         fh.setLevel(logging.DEBUG)
         fh.setFormatter(plain_formatter)
         logger.addHandler(fh)

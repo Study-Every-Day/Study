@@ -4,19 +4,19 @@ import os
 import sys
 import requests
 import logging
+import zipfile
 
 from .logger import log_first_n
 
 
-def run_cmd(cmd):
-    print(cmd)
-    os.system(cmd)
+def unzip(zip_path: str):
+    with zipfile.ZipFile(zip_path) as f:
+        f.extractall(os.path.dirname(zip_path))
+    os.remove(zip_path)
 
 
 def download_driver(os_name, save_path):
     logger = logging.getLogger(__name__)
-    assert os_name in ["linux", "windows",
-                       "mac"], f"Can't support OS: {os_name}"
     url_prefix = "http://chromedriver.storage.googleapis.com"
     latest_url = "http://chromedriver.storage.googleapis.com/LATEST_RELEASE"
     latest_version = requests.get(latest_url).text
@@ -29,26 +29,36 @@ def download_driver(os_name, save_path):
     else:
         file_name = "chromedriver_mac64.zip"
 
-    run_cmd(f"rm -rf '{save_path}'")
-
     url = '/'.join([url_prefix, latest_version, file_name])
+    response = requests.get(url)
 
-    run_cmd(f"wget {url} -P '{save_path}'")
-    run_cmd(f"unzip '{os.path.join(save_path, file_name)}' -d '{save_path}'")
+    zip_path = os.path.join(save_path, file_name)
+    if os.path.exists(zip_path):
+        os.remove(zip_path)
+    with open(zip_path, "wb") as f:
+        f.write(response.content)
+
+    unzip(zip_path)
 
 
 def check_webdriver():
     logger = logging.getLogger(__name__)
     os_name = sys.platform
+    if "win" in os_name:
+        os_name = "windows"
     if os_name not in ["linux", "windows"]:
         os_name = "mac"
     log_first_n(logging.INFO, f"OS: {os_name}", name=__name__, key="message")
 
     driver_root = os.path.abspath(__file__).split("utils")[0]
-    save_path = os.path.join(driver_root, "webdriver", os_name)
+    save_path = os.path.join(driver_root, "webdriver")
     os.makedirs(save_path, exist_ok=True)
 
     driver_path = os.path.abspath(os.path.join(save_path, "chromedriver"))
+
+    if "win" in os_name:
+        driver_path += ".exe"
+
     if os.path.exists(driver_path):
         log_first_n(
             logging.INFO,

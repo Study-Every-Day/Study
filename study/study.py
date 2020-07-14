@@ -24,6 +24,8 @@ _TASK_NAME = {
     "视听学习时长",
 }
 
+_LOGIN_URL = "https://pc.xuexi.cn/points/login.html"
+
 
 class Study(Driver):
 
@@ -81,14 +83,12 @@ class Study(Driver):
     def _login(self, max_num_retries=3):
         num_retries = 0
         self.logger.info("开始登录 ...")
-        login_url = "https://pc.xuexi.cn/points/login.html"
-        self.driver.get(login_url)
-        time.sleep(1)
+
         # load cookies if have
         if self.cookies_login_enable and self.cookies_cache_exists:
             self.logger.info(f"尝试使用缓存的cookies登录 ({self.cookies_path}) ...")
             self._restore_cookies_from_file(self.cookies_path)
-            is_login = self._check_login()
+            is_login = self._check_login(max_check_times=5)
 
             if not is_login:
                 self._remove_saved_cookies()
@@ -102,6 +102,8 @@ class Study(Driver):
                 if self.wxpusher_enable:
                     self._push_cookies_login()
         else:
+            self.driver.get(_LOGIN_URL)
+            time.sleep(1)
             if self.wxpusher_enable and self.qrcode_push_enable:
                 self._push_qrcode()
                 self.logger.info("已将登录二维码推送至微信, 请使用 [XXQG] APP 扫码登录 ...")
@@ -134,12 +136,13 @@ class Study(Driver):
         """
         count = 0
         while count < max_check_times:
+            count += 1
+            self.driver.get(_LOGIN_URL)
             try:
-                count += 1
                 assert self.driver.title == "我的学习"
                 return True
             except AssertionError:
-                self.logger.info(f"未检测到登录状态, 等待中 ({sleep_time}s) ...")
+                self.logger.info(f"未检测到登录状态, 等待中 ({sleep_time}s) ... (当前标题: {self.driver.title})")
                 if count == max_check_times - 1:
                     return False
                 else:
@@ -318,7 +321,7 @@ class Study(Driver):
 
     def _push_study_log(self):
         self.logger.info("正在将学习日志推送至微信")
-        with open(self.log_path, "r") as fp:
+        with open(self.log_path, "r", encoding="utf8") as fp:
             content_lines = fp.readlines()
         push_content = "\n\n".join([
             "# 🥳 XXQG任务完成 🥳\n\n",

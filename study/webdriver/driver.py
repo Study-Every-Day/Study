@@ -14,6 +14,8 @@ from study.utils.driver import check_webdriver
 
 logger = logging.getLogger(__name__)
 
+_LOGIN_URL = "https://pc.xuexi.cn/points/login.html"
+
 
 class Driver(object):
 
@@ -40,9 +42,9 @@ class Driver(object):
         options.add_argument('--disable-extensions')
         options.add_argument('--disable-gpu')  # avoid some bugs
         options.add_argument('--no-sandbox')
-        # options.add_argument('blink-settings=imagesEnabled=false')
         options.add_argument('--mute-audio')
         options.add_argument('--window-size=800,800')
+        options.add_experimental_option('excludeSwitches', ['enable-logging'])
 
         driver_path = check_webdriver()
 
@@ -51,14 +53,7 @@ class Driver(object):
         self.wait = WebDriverWait(self.driver, 20)
 
         if cookies is not None:
-            if isinstance(cookies, str):
-                logger.info("从文件中加载cookies ...")
-                self._restore_cookies_from_file(cookies)
-            elif isinstance(cookies, list):
-                logger.info("从list中加载cookies ...")
-                self._restore_cookies(cookies)
-            else:
-                logger.info(f"未知的cookies类型: {type(cookies)}")
+            self._restore_cookies(cookies=cookies)
 
     def __del__(self):
         if hasattr(self, "driver"):
@@ -84,16 +79,28 @@ class Driver(object):
             cookies_path = self.cookies_path
         with open(cookies_path, 'r') as fp:
             cookies = json.load(fp)
-        self._restore_cookies(cookies=cookies)
+        self._restore_cookies_from_list(cookies=cookies)
 
-    def _restore_cookies(self, cookies):
-        login_url = "https://pc.xuexi.cn/points/login.html"
-        self.driver.get(login_url)
+    def _restore_cookies_from_list(self, cookies):
+        self.driver.get(_LOGIN_URL)
         time.sleep(1)
+
         for cookie in cookies:
             if 'expiry' in cookie:
                 del cookie['expiry']
             self.driver.add_cookie(cookie)
+
+        self.driver.get(_LOGIN_URL)
+
+    def _restore_cookies(self, cookies):
+        if isinstance(cookies, str):
+            logger.info(f"从文件 ({cookies}) 中加载cookies ...")
+            self._restore_cookies_from_file(cookies)
+        elif isinstance(cookies, list):
+            logger.info("从list中加载cookies ...")
+            self._restore_cookies_from_list(cookies)
+        else:
+            logger.info(f"未知的cookies类型: {type(cookies)}")
 
     def _hiden_elements(self, class_name=[]):
         js = "".join([
