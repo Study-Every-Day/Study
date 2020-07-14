@@ -17,20 +17,25 @@ This is a useful project to help you learn XXQG.
 
 ## TODO
 
-- [ ] Add supports for windows (Only Linux now).
+- [x] Add supports for windows (Only Linux now).
 
 - [ ] Speed up.
 
 
 ## Usage
 
+### Linux / Mac
+
 ```bash
 # Clone this project
 git clone git@github.com:Study-Every-Day/Study.git
+cd Study
 
 # Install requirements
 # - Ubuntu
 ./tools/setup/ubuntu.sh
+# - Mac
+pip install -r requirements.txt
 # - Others
 # See: ## Reqirements
 
@@ -40,10 +45,30 @@ vim ./study/config.py
 # Run ([...] is optional parameter configuration)
 ./tools/run.sh [cfg args]
 # Or
-python study/main.py [cfg args]
+python tools/run.py [cfg args]
 
 # Examples: use command line arguments
 ./tools/run.sh DRIVER.GUI True
+python study/main.py DRIVER.GUI True
+```
+
+### Windows
+
+```bash
+# Clone this project
+git clone git@github.com:Study-Every-Day/Study.git
+cd Study
+
+# Install requirements
+pip install -r requirements.txt
+
+# Edit config module
+vim ./study/config.py
+
+# Run ([...] is optional parameter configuration)
+python tools/run.py [cfg args]
+
+# Examples: use command line arguments
 python study/main.py DRIVER.GUI True
 ```
 
@@ -52,7 +77,7 @@ python study/main.py DRIVER.GUI True
 
 1. Python version >= 3.6.
 
-2. You should install chrome latest version before run this project.
+2. You should install **[chrome](https://www.google.com/chrome/)** latest version before run this project.
 
 3. And you should also install third-party libs recorded in file: `requirements.txt`:
 
@@ -61,7 +86,7 @@ python study/main.py DRIVER.GUI True
     > ```
 
 
-## Run regularly in the server
+## Run regularly in the linux server
 
 ```shell
 crontab -e
