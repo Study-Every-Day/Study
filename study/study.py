@@ -88,6 +88,7 @@ class Study(Driver):
         if self.cookies_login_enable and self.cookies_cache_exists:
             self.logger.info(f"尝试使用缓存的cookies登录 ({self.cookies_path}) ...")
             self._restore_cookies_from_file(self.cookies_path)
+            self.driver.get(_LOGIN_URL)
             is_login = self._check_login(max_check_times=5)
 
             if not is_login:
@@ -137,7 +138,6 @@ class Study(Driver):
         count = 0
         while count < max_check_times:
             count += 1
-            self.driver.get(_LOGIN_URL)
             try:
                 assert self.driver.title == "我的学习"
                 return True
