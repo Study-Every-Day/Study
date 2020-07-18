@@ -23,13 +23,14 @@ sudo dpkg -i --force-depends google-chrome-stable_current_amd64.deb
 echo "=> google-chrome -version" $(google-chrome -version)
 
 echo "=> 下载最新的chromedriver ..."
-mkdir -p study/webdriver/linux/
-cd study/webdriver/linux/
+mkdir -p study/webdriver/
+cd study/webdriver/
 LATEST=$(wget -q -O - http://chromedriver.storage.googleapis.com/LATEST_RELEASE)
 wget http://chromedriver.storage.googleapis.com/$LATEST/chromedriver_linux64.zip
 
 echo "=> 解压chromedriver ..."
 unzip chromedriver_linux64.zip
+chmod +x chromedriver
 cd -
 
 echo "=> 安装第三方库 ..."
