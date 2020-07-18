@@ -10,8 +10,9 @@ from .logger import log_first_n
 
 
 def unzip(zip_path: str):
+    extra_path = os.path.dirname(zip_path)
     with zipfile.ZipFile(zip_path) as f:
-        f.extractall(os.path.dirname(zip_path))
+        f.extractall(extra_path)
     os.remove(zip_path)
 
 
@@ -71,6 +72,9 @@ def check_webdriver():
         download_driver(os_name, save_path=save_path)
         assert os.path.exists(driver_path), ("自动下载chrome webdriver失败, 请尝试重新运行或手动下载.")
         logger.info(f"下载成功, 保存至: {driver_path} ...")
+        if "win" not in os_name:
+            logger.info(f"chmod +x {driver_path}")
+            os.system(f"chmod +x {driver_path}")
 
     return driver_path
 

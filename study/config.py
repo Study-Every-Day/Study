@@ -26,7 +26,7 @@ _config_dict = dict(
             APP_TOKEN=os.getenv("APP_TOKEN"),
             # 可设置多个接受消息对象, 在环境变量中用 ','隔开, 或者直接替换成list
             # NOTE must be a list
-            UIDS=os.getenv("UIDS").split(","),
+            UIDS=os.getenv("UIDS", "").split(","),
         ),
     ),
     # 登录设置
