@@ -24,6 +24,9 @@ class ArticleTask(Task):
         Returns:
             article_title (str):
         """
+        if need_points % 2 == 0:
+            need_points //= 2
+
         num_retries = 0
         done_titles = []
         source_url = "https://www.xuexi.cn/lgdata/1crqb964p71.json"
@@ -69,4 +72,4 @@ class ArticleTask(Task):
 
     @classmethod
     def get_task_names(cls) -> list:
-        return ["阅读文章", "文章学习时长"]
+        return ["我要选读文章"]

@@ -16,14 +16,6 @@ from study.utils.upload import upload_image
 from study.utils.pusher import push_wechat
 
 
-_TASK_NAME = {
-    "每日登录",
-    "阅读文章",
-    "视听学习",
-    "文章学习时长",
-    "视听学习时长",
-}
-
 _LOGIN_URL = "https://pc.xuexi.cn/points/login.html"
 
 
@@ -178,7 +170,6 @@ class Study(Driver):
         Returns:
             gap_points (int): gap points
         """
-        assert task_name in _TASK_NAME, f"task_name arg must be in [{_TASK_NAME}]"
         task_name_and_points = self._get_points()
         task_points = task_name_and_points.get(task_name)
         self.logger.info(f"【{task_name}】任务积分：{task_points}")

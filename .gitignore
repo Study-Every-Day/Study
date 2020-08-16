@@ -1,13 +1,14 @@
 # log files
-study/log/*.log
+log
 study/log/qrcode
 .qiniu_pythonsdk_hostscache.json
 
 # webdriver
-study/webdriver/max
-study/webdriver/linux
-study/webdriver/windows
+study/webdriver
 
 # cache and download
 __pycache__
 google-chrome-stable*
+
+# vscode
+.vscode
